@@ -1,5 +1,26 @@
 {
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.282.0"
-  }
+  },
+  "name": "treelambda",
+  "version": "1.0.0",
+  "description": "for tree system call aws lambda function ",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/david-marstree/treeLambda.git"
+  },
+  "keywords": [
+    "aws"
+  ],
+  "author": "David MARStree",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david-marstree/treeLambda/issues"
+  },
+  "homepage": "https://github.com/david-marstree/treeLambda#readme"
 }
