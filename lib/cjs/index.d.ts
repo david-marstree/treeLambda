@@ -13,6 +13,7 @@ export type PayloadData = {
 export type InvokeConfig = LambdaClientConfig & {
     env?: string | undefined | null;
 };
+export declare const invoke: (name: string, data: PayloadData | undefined, config: InvokeConfig) => Promise<any>;
 declare const _default: {
     invoke: (name: string, data: PayloadData | undefined, config: InvokeConfig) => Promise<any>;
 };

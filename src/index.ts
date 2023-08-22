@@ -30,7 +30,7 @@ export type InvokeConfig = LambdaClientConfig & {
   env?: string | undefined | null;
 };
 
-const invoke = async (
+export const invoke = async (
   name: string,
   data: PayloadData = {},
   config: InvokeConfig,
