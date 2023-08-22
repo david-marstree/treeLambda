@@ -1,26 +1,33 @@
 {
-  "dependencies": {
-    "@aws-sdk/client-lambda": "^3.282.0"
-  },
-  "name": "treelambda",
-  "version": "1.0.0",
-  "description": "for tree system call aws lambda function ",
-  "main": "index.js",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/david-marstree/treeLambda.git"
-  },
-  "keywords": [
-    "aws"
-  ],
-  "author": "David MARStree",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/david-marstree/treeLambda/issues"
-  },
-  "homepage": "https://github.com/david-marstree/treeLambda#readme"
+    "name": "treelambda",
+    "version": "1.0.1",
+    "description": "for tree system call aws lambda function ",
+    "main": "lib/cjs/index.js",
+    "module": "lib/esm/index.js",
+    "types": "lib/esm/index.d.ts",
+    "dependencies": {
+        "@aws-sdk/client-lambda": "^3.282.0"
+    },
+    "devDependencies": {
+        "@tsconfig/node-lts": "^18.12.4",
+        "@types/node": "^20.5.2",
+        "typescript": "^5.1.6"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc && tsc -p tsconfig-cjs.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/david-marstree/treeLambda.git"
+    },
+    "keywords": [
+        "aws"
+    ],
+    "author": "David MARStree",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/david-marstree/treeLambda/issues"
+    },
+    "homepage": "https://github.com/david-marstree/treeLambda#readme"
 }
