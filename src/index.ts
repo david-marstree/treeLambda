@@ -48,23 +48,12 @@ export const invoke = async (
     client = createClient({ region });
   }
   if (!client) return false;
-  try {
-    const command = new InvokeCommand({
-      FunctionName: !!env ? `${name}-${env}` : name,
-      InvocationType: "RequestResponse",
-      LogType: "None",
-      Payload: JSON.stringify(data),
-    });
-    const { Payload: result } = await client.send(command);
-    if (!result) return false;
-    const jsonString = Buffer.from(result).toString("utf8");
-    const parsedData = JSON.parse(jsonString);
 
-    return parsedData;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
+  return await invokeObject({
+    client,
+    name: !!env ? `${name}-${env}` : name,
+    data,
+  });
 };
 
 export const invokeObject = async ({
@@ -72,7 +61,6 @@ export const invokeObject = async ({
   name,
   data = {},
 }: InvokeProps) => {
-  if (!client) return false;
   try {
     const command = new InvokeCommand({
       FunctionName: name,
