@@ -1,4 +1,11 @@
-import { LambdaClientConfig } from "@aws-sdk/client-lambda";
+import { LambdaClient, LambdaClientConfig } from "@aws-sdk/client-lambda";
+/**
+ * @access private
+ * @abstract for create lambda client from aws
+ * @param {*} config REGION
+ * @returns
+ */
+export declare const createClient: (config: LambdaClientConfig) => LambdaClient;
 /**
  * @access public
  * @abstract invoke lambda function from aws
@@ -10,12 +17,20 @@ import { LambdaClientConfig } from "@aws-sdk/client-lambda";
 export type PayloadData = {
     [key: string]: any;
 };
-export type InvokeConfig = LambdaClientConfig & {
+export type InvokeConfig = {
     env?: string | undefined | null;
 };
-export declare const invoke: (name: string, data: PayloadData | undefined, config: InvokeConfig) => Promise<any>;
+export type InvokeProps = {
+    client: LambdaClient;
+    name: string;
+    data?: PayloadData;
+};
+export declare const invoke: (name: string, data: PayloadData | undefined, config: LambdaClientConfig & InvokeConfig, lambdaClient?: LambdaClient) => Promise<any>;
+export declare const invokeObject: ({ client, name, data, }: InvokeProps) => Promise<any>;
 declare const _default: {
-    invoke: (name: string, data: PayloadData | undefined, config: InvokeConfig) => Promise<any>;
+    createClient: (config: LambdaClientConfig) => LambdaClient;
+    invoke: (name: string, data: PayloadData | undefined, config: LambdaClientConfig & InvokeConfig, lambdaClient?: LambdaClient | undefined) => Promise<any>;
+    invokeObject: ({ client, name, data, }: InvokeProps) => Promise<any>;
 };
 export default _default;
 //# sourceMappingURL=index.d.ts.map

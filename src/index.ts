@@ -10,7 +10,7 @@ import {
  * @param {*} config REGION
  * @returns
  */
-const _createClient = (config: LambdaClientConfig): LambdaClient =>
+export const createClient = (config: LambdaClientConfig): LambdaClient =>
   new LambdaClient(config);
 
 /**
@@ -26,18 +26,29 @@ export type PayloadData = {
   [key: string]: any;
 };
 
-export type InvokeConfig = LambdaClientConfig & {
+export type InvokeConfig = {
   env?: string | undefined | null;
+};
+
+export type InvokeProps = {
+  client: LambdaClient;
+  name: string;
+  data?: PayloadData;
 };
 
 export const invoke = async (
   name: string,
   data: PayloadData = {},
-  config: InvokeConfig,
+  config: LambdaClientConfig & InvokeConfig,
+  lambdaClient?: LambdaClient,
 ) => {
   const { region, env = null } = config;
+  let client: LambdaClient | undefined = lambdaClient;
+  if (!lambdaClient) {
+    client = createClient({ region });
+  }
+  if (!client) return false;
   try {
-    const client = _createClient({ region });
     const command = new InvokeCommand({
       FunctionName: !!env ? `${name}-${env}` : name,
       InvocationType: "RequestResponse",
@@ -56,4 +67,29 @@ export const invoke = async (
   }
 };
 
-export default { invoke };
+export const invokeObject = async ({
+  client,
+  name,
+  data = {},
+}: InvokeProps) => {
+  if (!client) return false;
+  try {
+    const command = new InvokeCommand({
+      FunctionName: name,
+      InvocationType: "RequestResponse",
+      LogType: "None",
+      Payload: JSON.stringify(data),
+    });
+    const { Payload: result } = await client.send(command);
+    if (!result) return false;
+    const jsonString = Buffer.from(result).toString("utf8");
+    const parsedData = JSON.parse(jsonString);
+
+    return parsedData;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export default { createClient, invoke, invokeObject };

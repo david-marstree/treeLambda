@@ -1,6 +1,6 @@
 {
     "name": "treelambda",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "for tree system call aws lambda function ",
     "homepage": "https://github.com/david-marstree/treeLambda#readme",
     "main": "lib/cjs/index.js",
